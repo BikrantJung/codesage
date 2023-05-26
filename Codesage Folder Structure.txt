@@ -1,0 +1,67 @@
+.
+└── src/
+    ├── app/
+    │   ├── layout.tsx
+    │   ├── page.tsx
+    │   └── share/
+    │       └── journey/
+    │           └── page.tsx
+    └── packages/
+        ├── components/
+        │   ├── ui/ @ Only base components 
+        │   │   └── button/
+        │   │       ├── button.tsx
+        │   │       ├── button.styles.tsx
+        │   │       └── // Button related
+        │   ├── forms/
+        │   │   ├── address-input.tsx
+        │   │   ├── email-input.tsx
+        │   │   ├── password-input.tsx
+        │   │   └── // Form related components
+        │   ├── navbar/
+        │   ├── sidebar/
+        │   └── icons/
+        ├── config/
+        │   ├── theme/
+        │   └── eslint.ts
+        ├── core/
+        │   └── # Really important code files.
+        ├── features/ # Most important directory
+        │   ├── auth/
+        │   │   └── lib/
+        │   │       ├── ErrorCodes.ts
+        │   │       ├── getServerSession.ts
+        │   │       └── isPasswordValid.ts
+        │   ├── problem/
+        │   │   ├── index.ts
+        │   │   ├── components/
+        │   │   │   ├── problems-list.tsx
+        │   │   │   ├── single-problem.tsx
+        │   │   │   ├── new-problem-form.tsx(Input, Editor, Button)
+        │   │   │   └── confirm-modal.tsx
+        │   │   ├── queries/
+        │   │   │   ├── get-all-problems.ts
+        │   │   │   └── get-single-problem.ts
+        │   │   ├── mutations/
+        │   │   │   ├── create-new-problem.ts(A fetch API function)
+        │   │   │   ├── upvote-problem.ts
+        │   │   │   └── delete-problem.ts
+        │   │   └── state/ (All shared statement here...)
+        │   │       ├── title-state.ts
+        │   │       ├── tags-state.ts
+        │   │       └── content-state.ts
+        │   ├── profile/ (Related to user profile)
+        │   │   └── ...
+        │   └── snippet/ # Code snippet feature
+        │       └── ...
+        ├── lib/
+        │   ├── utils.ts
+        │   ├── fallback-pp.ts
+        │   └── parse-date.ts
+        ├── hooks/ # Global hooks (not component specific)
+        │   ├── use-outside-click.ts
+        │   ├── use-scroll.ts
+        │   └── use-key-press.ts 
+        └── server/  # Code that runs on server
+            ├── user-exists.ts
+            └── verify-username.ts

@@ -1,0 +1,64 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: 60 15% 95%;
+  --primary-foreground: 0 0% 0%;
+
+  --background: 60 15% 95%;
+  --foreground: 0 0% 0%;
+  
+  --destructive:0 100% 50%;
+
+  --accent: 312 95% 78%;
+  --accent-foreground:0 0% 0%;
+
+  --card: 0 0% 100%;
+  --card-foreground:0 0% 0%;
+}
+
+/* @media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+} */
+
+@layer base {
+  
+  body {
+    @apply bg-background text-foreground font-medium;
+  }
+  a {
+    @apply hover:underline
+  }
+  kbd {
+    @apply bg-[#edf2f7] shadow-[0_3px_0px_0px_#e2e8f0] px-1 rounded-lg
+  }
+}
+@layer components {
+  .apply-border {
+    @apply border-2 border-black
+  }
+  .apply-shadow {
+    @apply shadow-[4px_4px_0px_0px_black]
+  }
+  .quill {
+    font-family:cursive;
+  }
+  .ql-toolbar {
+    font-family: inherit;
+  }
+
+}
+
+@keyframes bounce-1 {
+  0% {
+    transform: translateY(0px);
+  }
+  100% {
+    transform: translateY(-4px);
+  }
+}
