@@ -1,7 +1,7 @@
 import { Logo } from "@/components/atoms/logo";
 import { getCurrentUser } from "@/lib/session";
 import { redirect } from "next/navigation";
-import { LoginBox } from "./login-box";
+import { LoginBox } from "@/features/auth/login/components/login-box"; 
 import Link from "next/link";
 
 export default async function LoginPage() {

@@ -1,8 +1,8 @@
 /** @type {import('tailwindcss').Config} */
-const { generateVariables } = require("./src/lib/utils");
 module.exports = {
   content: [
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
+    "./packages/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {

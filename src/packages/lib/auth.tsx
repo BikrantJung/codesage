@@ -1,4 +1,4 @@
-import { transporter } from "@/emails";
+import { transporter } from "../emails";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { render } from "@react-email/render";
 import type { NextAuthOptions } from "next-auth";
@@ -31,8 +31,6 @@ export const authOptions: NextAuthOptions = {
   },
   callbacks: {
     async session({session,user}) {
-      console.log("Something happening with session....")
-      console.log({user,session})
       if (user && session) {
         session.user.id = user.id;
         session.user.name = user.name;
@@ -50,7 +48,6 @@ export const authOptions: NextAuthOptions = {
   },
   events:{
     async signIn(message){
-      console.log("New user message",message)
       if(message.isNewUser === true && message.account?.provider ==='email') {
         const initialUsername = message.user.email?.split("@")[0]
         await db.user.update({

@@ -1,7 +1,7 @@
 "use client";
 import { useCallback, useEffect } from "react";
 import { useQuill } from "react-quilljs";
-import "../../styles/quill.snow.css";
+import "@/styles/quill.snow.css";
 import { customIcons } from "./custom-icons";
 interface QuillEditorProps {
   editorValue: string;

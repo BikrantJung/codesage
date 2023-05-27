@@ -7,7 +7,7 @@ import {
   useEditorContentStore,
   useTagStore,
   useTitleStore,
-} from "./state/input-state";
+} from "../state/input-state";
 import { TagsInput } from "./tags-input";
 import { Toaster, toast } from "sonner";
 const QEditor = dynamic(() => import("../../../components/editor/editor"), {

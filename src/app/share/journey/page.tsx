@@ -1,6 +1,6 @@
 import { MaxWidthWrapper } from "@/components/shared";
 
-import { NewProblemForm } from "@/features/problem/new-problem/new-problem-form";
+import { NewProblemForm } from "@/features/problem/components/new-problem-form";
 
 function ShareJourneyPage() {
   return (

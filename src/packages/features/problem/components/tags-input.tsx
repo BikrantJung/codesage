@@ -3,8 +3,8 @@ import { EditIcon } from "@/components/icons/EditIcon";
 import { TagDeleteIcon } from "@/components/icons/TagDeleteIcon";
 import React, { useRef, useState } from "react";
 import { Toaster, toast } from "sonner";
-import { useTagStore } from "./state/input-state";
-import { ITag } from "./types";
+import { useTagStore } from "../state/input-state";
+import { ITag } from "../types";
 
 export const TagsInput = () => {
   const tagInputRef = useRef<HTMLInputElement>(null);
