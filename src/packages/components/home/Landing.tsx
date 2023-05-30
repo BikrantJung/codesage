@@ -7,6 +7,7 @@ const LandingShowcase = dynamic(() => import("./landing-showcase"), {
 // import { LandingShowcase } from "./landing-showcase";
 import dynamic from "next/dynamic";
 import { Button } from "../atoms/button";
+import Link from "next/link";
 export const LandingSection = () => {
   return (
     <MaxWidthWrapper className="">
@@ -18,7 +19,10 @@ export const LandingSection = () => {
           <p className="max-w-[350px]">
             Share your solution to help others, and get better solutions.
           </p>
+          <Link href={'/problems'}>
           <Button>Explore Problems</Button>
+
+          </Link>
         </div>
 
         <LandingShowcase />

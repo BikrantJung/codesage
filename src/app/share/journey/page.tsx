@@ -1,3 +1,4 @@
+import { MarkdownEditor } from "@/components/editor/markdown-editor";
 import { MaxWidthWrapper } from "@/components/shared";
 
 import { NewProblemForm } from "@/features/problem/components/new-problem-form";
@@ -19,7 +20,7 @@ function ShareJourneyPage() {
                 Your solution might help others.
               </p>
             </div>
-
+            <MarkdownEditor/>
             <div className="min-h-screen flex w-full items-start gap-4">
               <div className="flex-[3_3_0%] flex flex-col gap-4">
     

@@ -1,10 +1,9 @@
 import { db } from "@/lib/db";
 import { getLoggedInUser } from "@/lib/session";
-import { IPostProblem } from "@/types/shared/post-problem";
+import { IGetAllProblems, IPostProblem } from "@/types/shared/post-problem";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest, res: NextResponse) {
-
   const user = await getLoggedInUser();
   if (!user) {
     return NextResponse.json({
@@ -56,5 +55,29 @@ export async function POST(req: NextRequest, res: NextResponse) {
         statusText: "Bad request",
       }
     );
+  }
+}
+
+export async function GET(req : NextRequest) {
+
+  const url = new URL(req.url)
+
+  const skip = url.searchParams.get("skip")
+  const take = url.searchParams.get("take")
+
+
+
+  try {
+    const problems = await db.userProblem.findMany({
+      skip: skip ? Number(skip) : undefined,
+      take: take ? Number(take) : undefined
+    });
+    return NextResponse.json(
+      { message: "Success", data: problems, ok: true },
+      { status: 200, statusText: "OK" }
+    );
+  } catch (error) {
+    console.log(error);
+    console.log("SER VER ERR OR");
   }
 }
