@@ -5,94 +5,59 @@ import { extractToolbarPlaceholderPosition } from "./lib/utils";
 import { Button } from "../atoms/button";
 import { BlockQuoteIcon } from "../icons/BlockQuoteIcon";
 import { useHandleBold } from "./lib/hooks/useHandleBold";
+import { InlineCodeIcon } from "../icons/InlineCodeIcon";
+import { TextArea } from "../atoms/textarea";
+import { ImageUploadDialog } from "./image-upload-dialog";
 
 export const MarkdownEditor = () => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const [textareaValue, setTextareaValue] = useState("");
-  const {handleBoldClick} = useHandleBold({
+  const { handleBoldClick } = useHandleBold({
     content: textareaValue,
     element: textareaRef.current,
     setContent: setTextareaValue,
   });
   // Handler for inserting text at cursor position
 
-  const insertTextAtCursor = (text: ToolbarPlaceholders) => {
-    const positions = extractToolbarPlaceholderPosition(text);
-    console.log("POSIITIONS", { positions });
-    const textarea = textareaRef.current;
-    if (textarea) {
-      const { selectionStart, selectionEnd } = textarea;
-      const isSelected = selectionStart !== selectionEnd;
-
-      let updatedValue;
-      if (isSelected) {
-        console.log("Selected");
-        updatedValue =
-          textareaValue.substring(0, selectionStart) +
-          " **" +
-          updatedValue +
-          "** " +
-          textareaValue.substring(selectionEnd);
-      } else {
-        updatedValue =
-          textareaValue.substring(0, selectionStart) +
-          text +
-          textareaValue.substring(selectionEnd);
+  function handleKeyPress(e: React.KeyboardEvent<HTMLTextAreaElement>) {
+    if (e.ctrlKey) {
+      if (e.key === "b") {
+        e.preventDefault();
+        handleBoldClick("bold");
       }
-      if (text === ToolbarPlaceholders.BLOCKQUOTE) {
-        updatedValue =
-          textareaValue.substring(0, selectionStart) +
-          "\n" +
-          text +
-          textareaValue.substring(selectionStart);
+      if (e.key === "i") {
+        e.preventDefault();
+        handleBoldClick("italic");
       }
 
-      setTextareaValue(updatedValue);
+      if (e.key === "`") {
+        e.preventDefault();
+        handleBoldClick("inline_code");
+      }
 
-      const positionStart = selectionStart + positions.toolbarPlaceholderStart;
-      // ( **bold** )
-      // length = 10, start = 3, end = 6
-      const positionEnd = selectionStart + positions.toolbarPlaceholderEnd + 1;
-      console.log(positions);
-      console.log({ positionStart, positionEnd });
-      textarea.focus();
+      if (e.key === "-") {
+        e.preventDefault();
+        handleBoldClick("strikethrough");
+      }
+      if(e.key==='l'){
+        e.preventDefault()
+        handleBoldClick('link')
+      }
 
-      setTimeout(() => {
-        textarea.setSelectionRange(positionStart, positionEnd);
-      }, 0);
 
-      textarea.setSelectionRange(1, 4);
-      // if(inputRef.current){
-      //   inputRef.current.focus()
-      //   inputRef.current.setSelectionRange(2,4)
-      // }
     }
-
-  };
-  function printSubstring(){
-    let string = 'I am very handsome'
-    console.log(string.substring(0,3))
-
-    
-  }
-  function handleKeyPress(e:React.KeyboardEvent<HTMLTextAreaElement>){
-    if(e.ctrlKey && e.key==='b'){
-      handleBoldClick("bold")
-    } 
   }
   return (
     <div className="flex flex-col gap-2">
       <div className="flex items-center gap-2">
-        <Button onClick={()=>handleBoldClick("bold")}>B</Button>
-        <Button onClick={()=>printSubstring()}>S</Button>
-        <Button onClick={() => handleBoldClick("italic")}>
-          I
-        </Button>
-        <Button
-          onClick={() => insertTextAtCursor(ToolbarPlaceholders.BLOCKQUOTE)}
-        >
-          <BlockQuoteIcon height={16} width={16} />
+        <Button onClick={() => handleBoldClick("bold")}>B</Button>
+        <Button onClick={() => handleBoldClick("italic")}>I</Button>
+        <Button onClick={() => handleBoldClick("strikethrough")}>S</Button>
+        <Button onClick={() => handleBoldClick("link")}>L</Button>
+        <ImageUploadDialog/>
+        <Button onClick={() => handleBoldClick("inline_code")}>
+          <InlineCodeIcon height={16} width={16} />
         </Button>
       </div>
       <textarea
@@ -100,14 +65,12 @@ export const MarkdownEditor = () => {
         onChange={(e) => {
           setTextareaValue(e.currentTarget.value);
         }}
-        onKeyDown={(e)=>handleKeyPress(e)}
-        className="p-3"
+        onKeyDown={(e) => handleKeyPress(e)}
+        className="p-3 focus-visible:ring-accent focus-visible:ring-2 focus-visible:outline-none min-h-300px text-base"
         ref={textareaRef}
-        name="textarea"
-        id="textarea"
         cols={30}
         rows={10}
-      ></textarea>
+      />
     </div>
   );
 };

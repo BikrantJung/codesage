@@ -1,4 +1,8 @@
-import { ToolbarActionsMapping, ToolbarKeys, ToolbarPlaceholders } from "../toolbar-placeholder";
+import {
+  ToolbarActionsMapping,
+  ToolbarKeys,
+  ToolbarPlaceholders,
+} from "../toolbar-placeholder";
 
 export interface Position {
   toolbarPlaceholderStart: number;
@@ -27,36 +31,33 @@ interface GetSelectionPosition {
   selectedText: string;
   selectionStart: number;
   selectionEnd: number;
-  
-  pressedKey: ToolbarKeys
+
+  pressedKey: ToolbarKeys;
 }
 
 export function getSelectionPosition(props: GetSelectionPosition): {
   selectionStartPos: number;
   selectionEndPos: number;
 } {
-  const {
-    selectedText,
-    selectionStart, pressedKey
-  } = props;
+  const { selectedText, selectionStart, pressedKey } = props;
   let selectionStartPos = 0;
   let selectionEndPos = 0;
-  const toolbarStartPos = ToolbarActionsMapping[pressedKey].startPosition
-  const toolbarEndPos = ToolbarActionsMapping[pressedKey].endPosition
+  const toolbarStartPos = ToolbarActionsMapping[pressedKey].startPosition;
+  const toolbarEndPos = ToolbarActionsMapping[pressedKey].endPosition;
   if (selectedText) {
     selectionStartPos =
-      selectionStart + selectedText.length + toolbarStartPos * 2;
+      selectionStart + selectedText.length + toolbarStartPos + 1;
     selectionEndPos = selectionStartPos;
-    return {
-      selectionEndPos,
-      selectionStartPos,
-    };
+    if (pressedKey === "link") {
+      selectionStartPos = selectionStart + 3 + selectedText.length;
+      selectionEndPos = selectionStart + 4 + selectedText.length + (ToolbarActionsMapping[pressedKey].formatting.length - 3);
+    }
   } else {
     selectionStartPos = selectionStart + toolbarStartPos;
     selectionEndPos = selectionStart + toolbarEndPos + 1;
-    return {
-      selectionEndPos,
-      selectionStartPos,
-    };
   }
+  return {
+    selectionEndPos,
+    selectionStartPos,
+  };
 }

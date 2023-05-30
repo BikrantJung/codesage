@@ -14,13 +14,11 @@ export function useHandleBold(props: IHandleToolbarButton) {
   const handleBoldClick = (key: ToolbarKeys) => {
     console.log(`CLICKED ${key} BUTTON`);
     console.log(ToolbarActionsMapping[key].placeholder);
-    let updatedValue;
+    let updatedValue='';
     let selectedText = "";
 
     if (element) {
       const { selectionStart, selectionEnd } = element;
-
-     
 
       if (selectionStart === selectionEnd) {
         // No text is selected, Add placholder text
@@ -31,12 +29,23 @@ export function useHandleBold(props: IHandleToolbarButton) {
       } else {
         // Text is selected, just wrap the text with formatting.
         selectedText = content.substring(selectionStart, selectionEnd);
-        updatedValue =
-          content.substring(0, selectionStart) +
-          ` ${ToolbarActionsMapping[key].formatting}` +
-          content.substring(selectionStart, selectionEnd) +
-          `${ToolbarActionsMapping[key].formatting} ` +
-          content.substring(selectionEnd);
+        if (key !== "link") {
+          updatedValue =
+            content.substring(0, selectionStart) +
+            `${ToolbarActionsMapping[key].formatting}` +
+            content.substring(selectionStart, selectionEnd) +
+            `${ToolbarActionsMapping[key].formatting}` +
+            content.substring(selectionEnd);
+        }
+        if (key === "link") {
+          updatedValue =
+            content.substring(0, selectionStart) +
+            "[" +
+            content.substring(selectionStart, selectionEnd) +
+            "]" +
+            `(https://example.com)` +
+            content.substring(selectionEnd) ;
+        }
       }
       const data = getSelectionPosition({
         selectedText,
